@@ -1,0 +1,17 @@
+# https://miniflux.app/docs/docker.html#registeries
+- name: Create Miniflux container service
+  docker_container:
+    name: "{{ miniflux_container_name }}"
+    image: "{{ miniflux_image_name }}:{{ miniflux_image_tag }}"
+    state: started
+    restart_policy: always
+    networks:
+      - name: "{{ docker_network_name }}"
+    env:
+      DATABASE_URL: "postgres://{{ postgres_username }}:{{ postgres_password }}@{{ postgres_container_name }}/{{ postgres_db }}?sslmode=disable"
+      RUN_MIGRATIONS: "1"
+      CREATE_ADMIN: "1"
+      ADMIN_USERNAME: "{{ miniflux_admin_username }}"
+      ADMIN_PASSWORD: "{{ miniflux_admin_password }}"
+    ports:
+      - "{{ miniflux_port }}:8080"

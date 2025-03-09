@@ -1,0 +1,47 @@
+- name: Check dir existence
+  file:
+    path: "{{ postgres_mount_source }}"
+    state: directory
+    mode: "0755"
+
+- name: Keep PostgresSQL running
+  docker_container:
+    name: "{{ postgres_container_name }}"
+    image: "{{ postgres_image_name }}:{{ postgres_image_tag }}"
+    state: started
+    restart_policy: always
+    networks:
+      - name: "{{ docker_network_name }}"
+    env:
+      POSTGRES_USER: "{{ postgres_username }}"
+      POSTGRES_PASSWORD: "{{ postgres_password }}"
+      POSTGRES_DB: "{{ postgres_db }}"
+    volumes:
+      - "{{ postgres_mount_source }}:{{ postgres_container_data_dir }}"
+    ports:
+      - "5432:5432"
+
+- name: Delay for Postgres services to be ready
+  wait_for:
+    port: 5432
+    delay: 5
+    timeout: 30
+
+- name: Check if database exists
+  community.general.postgresql_db:
+    name: "{{ postgres_db }}"
+    state: present
+    login_user: "{{ postgres_username }}"
+    login_password: "{{ postgres_password }}"
+    login_host: "{{ remote_host }}"
+  register: db_check
+
+- name: Display database existence status
+  debug:
+    msg: "Database exists!"
+  when: db_check.changed == false
+
+- name: Display database not found message
+  debug:
+    msg: "Database does not exist!"
+  when: db_check.changed == true

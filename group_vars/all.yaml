@@ -1,0 +1,20 @@
+# IN NORMAL CASES: THIS FILE NEEDS TO BE PUSHED AS TEMPLATE
+# SENSITIVE INFORMATION MUST NOT BE LEAKED !
+
+docker_network_name: "backend"
+remote_host: "192.168.0.74" # this is only for checking database existence
+postgres_container_name: "postgres"
+postgres_image_name: "postgres"
+postgres_image_tag: "latest"
+postgres_username: "miniflux"
+postgres_password: "miniflux"
+postgres_db: "miniflux"
+postgres_mount_source: "/opt/postgres_data"
+postgres_container_data_dir: "/var/lib/postgresql/data"
+
+miniflux_container_name: "miniflux"
+miniflux_image_name: "miniflux/miniflux"
+miniflux_image_tag: "latest"
+miniflux_port: "8080"
+miniflux_admin_username: "admin"
+miniflux_admin_password: "test123"

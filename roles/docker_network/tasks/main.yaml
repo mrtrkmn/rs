@@ -1,0 +1,4 @@
+- name: Create docker network named backend
+  docker_network:
+    name: "{{ docker_network_name }}"
+    state: present
