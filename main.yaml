@@ -1,0 +1,10 @@
+- name: Setup Postgres/Network/Miniflux
+  hosts: all
+  vars_files:
+    - ./secrets/creds.yaml
+  become: yes
+  become_method: sudo
+  roles:
+    - docker_network
+    - postgres
+    - miniflux
