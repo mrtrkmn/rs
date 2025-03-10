@@ -67,7 +67,8 @@ docker build -t ansible-env .
 
 ### Running the Playbook
 
-The playbook that includes all roles can be run with the following command:
+The playbook that includes all roles can be run with the following command: 
+ (The following command needs to be executed in parent dir of the repository)
 
 ```bash
 docker run --rm -it \
@@ -134,6 +135,8 @@ secrets/
 - **inventory/hosts**: Lists the IP addresses of the nodes.
 - **ansible.cfg**: Ansible configuration file.
 - **secrets/creds.yaml**: Encrypted file containing sensitive information.
+
+In case of customization of the setup, mentioned configuration files need to be updated according to your environment. 
 
 ### Playbook
 
