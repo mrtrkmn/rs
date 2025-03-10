@@ -2,6 +2,34 @@
 
 This repository contains Ansible playbooks and roles to set up a Docker network, Postgres database, and Miniflux service.
 
+## Prior Quesions 
+
+- Why we might want to use services inside a container instead of directly on the host. Are there benefits or issues with it?
+     - Benefits
+        - If there will be a vulnerability on Ansible version, it won't effect the host system ( depending on the vulnerability and workload of the system )
+        - Provides extra security layer
+        - Efficient compared to VM, easy to manage
+        - Has lower overhead compared to VM 
+        - Easy rollback, when there is a problem in a version
+        - Rolling updates without downtime is possible
+    
+    - Possible Issues
+        - Due to extra security layer, there might be performance overhead ( it might or might not be ignored depends on the situation) 
+        - Not directly an issue but it will require centralized logging because logs inside containers are temporary.
+
+- Why we might want to put Ansible in a Container Image? Are there benefits or issues with it?
+    - Benefits
+        - Decreases attack surface by installing only required libraries inside the container image
+        - Same Ansible version and dependencies will be used across different environments ( MacOS, Linux , Windows)
+        - "works on my local" problem will be removed
+        - When temporary Ansible execution envrionment required such as in CI/CD pipelines, this will be beneficial. 
+    - Possible Issues
+        - There is no systemd, which might be required in some cases to manage host services. ( there might be some tricks to overcome however as built-in first approach,there is no easy management )
+
+- What happens when you restart your host. Is the service online afterwards?
+    - Yes, due to restart policy of services is defined as always, when the host is restarted, the services will be re-created again. 
+
+
 ## Prerequisites
 
 - SSH authentication setup between nodes (preferred way of authentication for Linux environments).
