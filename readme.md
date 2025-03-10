@@ -110,6 +110,9 @@ group_vars/
 inventory/
     hosts
 roles/
+    docker_daemon/
+        tasks/
+            main.yaml
     docker_network/
         tasks/
             main.yaml
@@ -125,6 +128,7 @@ secrets/
 
 ### Roles
 
+- **docker_daemon**: Installs Docker CE to the host
 - **docker_network**: Creates a Docker network named `backend`.
 - **postgres**: Sets up and runs a Postgres container.
 - **miniflux**: Sets up and runs a Miniflux container.
@@ -150,6 +154,7 @@ In case of customization of the setup, mentioned configuration files need to be 
   become: yes
   become_method: sudo
   roles:
+    - docker_daemon
     - docker_network
     - postgres
     - miniflux
