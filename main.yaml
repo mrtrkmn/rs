@@ -5,6 +5,7 @@
   become: yes
   become_method: sudo
   roles:
+    - docker_daemon
     - docker_network
     - postgres
     - miniflux
