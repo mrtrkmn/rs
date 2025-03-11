@@ -1,45 +1,55 @@
 ---
+- name: Remove existing Docker GPG key
+  file:
+    path: /etc/apt/keyrings/docker.gpg
+    state: absent
+
+- name: Remove existing Docker APT repository
+  file:
+    path: /etc/apt/sources.list.d/docker.list
+    state: absent
+
 - name: Update the apt package index
   apt:
     update_cache: yes
-  become: yes
+  become: True
 
 - name: Install packages to allow apt to use a repository over HTTPS
   apt:
-    name: 
+    name:
       - apt-transport-https
       - ca-certificates
       - curl
       - software-properties-common
     state: present
-  become: yes
+  become: True
 
 - name: Add Docker’s official GPG key
   apt_key:
     url: https://download.docker.com/linux/ubuntu/gpg
     state: present
-  become: yes
+  become: True
 
 - name: Add Docker APT repository
   apt_repository:
     repo: deb https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} stable
     state: present
-  become: yes
+  become: True
 
 - name: Update the apt package index again
   apt:
     update_cache: yes
-  become: yes
+  become: True
 
 - name: Install Docker CE
   apt:
     name: docker-ce
     state: present
-  become: yes
+  become: True
 
 - name: Ensure Docker is running
   service:
     name: docker
     state: started
     enabled: yes
-  become: yes
+  become: True
