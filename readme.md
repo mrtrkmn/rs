@@ -2,6 +2,11 @@
 
 This repository contains Ansible playbooks and roles to set up a Docker network, Postgres database, and Miniflux service.
 
+
+https://github.com/user-attachments/assets/bb20ca15-1169-4a5a-93b6-4c5320f67c06
+
+
+
 ## Prior Quesions 
 
 - Why we might want to use services inside a container instead of directly on the host. Are there benefits or issues with it?
