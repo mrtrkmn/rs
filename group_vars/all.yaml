@@ -2,7 +2,7 @@
 # SENSITIVE INFORMATION MUST NOT BE LEAKED !
 
 docker_network_name: "backend"
-remote_host: "192.168.0.74" # this is only for checking database existence
+remote_host: "100.112.37.108" # this is only for checking database existence
 postgres_container_name: "postgres"
 postgres_image_name: "postgres"
 postgres_image_tag: "latest"
